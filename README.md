@@ -6,4 +6,4 @@
  <!-- badges: start -->
   [![Codecov test coverage](https://codecov.io/gh/jsdrquq/biostat625hw3submit/branch/master/graph/badge.svg)](https://app.codecov.io/gh/jsdrquq/biostat625hw3submit?branch=master)
   <!-- badges: end -->
-#install
+# install
