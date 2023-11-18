@@ -7,8 +7,15 @@
 #' @return Coefficients, fitted values and residuals,
 #'         various statistics such as the t-statistic, F-statistic, R-squared,
 #'         standard errors, confidence intervals, and the covariance matrix.
-#'
 #' @export
+#'
+#' @importFrom stats as.formula
+#' @importFrom stats model.frame
+#' @importFrom stats model.matrix
+#' @importFrom stats model.response
+#' @importFrom stats pt
+#' @importFrom stats qt
+#' @importFrom stats pf
 #'
 #' @description Fits a multiple linear regression model to the specified data using the least squares method.
 #'     Calculates model coefficients, fitted values, residuals, and provides various statistical measures,
