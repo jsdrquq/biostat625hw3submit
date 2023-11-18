@@ -15,3 +15,17 @@ You can install the development version of `csqnewlm` from GitHub using the `dev
 # install.packages("devtools")
 devtools::install_github("jsdrquq/biostat625hw3submit")
 ```
+## Example
+Suppose we want to perform a linear regression on the `mpg` variable in the `mtcars` dataset, considering the independent variables `wt` (weight) and `hp` (horsepower). The following code demonstrates how to achieve this using the `csqnewlm` package:
+
+```r
+# Load the csqnewlm package
+library(csqnewlm)
+
+# Example Usage
+data(mtcars)
+result <- newlm(mpg ~ wt + hp, data=mtcars)
+result
+```
+
+
