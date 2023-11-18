@@ -20,7 +20,7 @@ standard errors, confidence intervals, and the covariance matrix.
 Fits a multiple linear regression model to the specified data using the least squares method.
 Calculates model coefficients, fitted values, residuals, and provides various statistical measures,
 including the t-statistic, F-statistic, R-squared. Additionally, computes
-standard errors, confidence intervals, and the covariance matrix of the estimated coefficients.
+standard errors, confidencess intervals, and the covariance matrix of the estimated coefficients.
 }
 \examples{
 data(mtcars)
