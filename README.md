@@ -47,7 +47,7 @@ The output from the `newlm` function provides various components of the multiple
 
 - **Confidence Intervals**: Confidence intervals for each coefficient.
 
-- **Covariance Matrix**: Covariance matrix of the estimated coefficients.
+- **Covariance Matrix**: Covariances of each two of the estimated coefficients.
 
 These results provide a comprehensive summary of the linear regression analysis, enabling users to interpret the relationships between variables, assess model fit, and understand the significance of individual coefficients. Users can leverage this information to make informed decisions and draw meaningful insights from the analyzed data.
 
