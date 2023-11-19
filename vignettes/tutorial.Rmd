@@ -84,7 +84,7 @@ print(paste("Adjusted R-squared equal:", isTRUE(all.equal(summary(lm_model)$adj.
 # Test covariance matrix
 print(paste("Covariance matrix equal:", isTRUE(all.equal(vcov(lm_model), newlm_model$Cov_Matrix, ignore.attr = TRUE, check.attributes = check_attributes))))
 
-
+```
 
 
 
