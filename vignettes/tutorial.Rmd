@@ -15,10 +15,90 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
+library(bench)
 library(csqnewlm)
 ```
 
+Description:
+This R package fits a multiple linear regression model to specified data using the least squares method. It requires a formula specifying the response and independent variables, as well as a dataframe (data) containing the specified variables and returns a list containing key statistics such as coefficients, fitted values, residuals, t-statistic, F-statistic, R-squared, standard errors, confidence intervals, and the covariance matrix.
+
 To use the function "newlm"
 ```{r}
+data(mtcars)
 newlm(mpg ~ wt + hp, data = mtcars)
 ```
+
+Comparison:
+
+```{r}
+newlm_model <- newlm(mpg ~ hp, data = mtcars)
+lm_model <- lm(mpg ~ hp, data = mtcars)
+```
+
+```{r}
+# Set check.attributes to FALSE for all.equal comparisons
+check_attributes <- FALSE
+
+# Test coefficients
+print(paste("Coefficients equal:", isTRUE(all.equal(coef(lm_model), newlm_model$Coefficients$Coefficients, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test fitted values
+print(paste("Fitted values equal:", isTRUE(all.equal(fitted(lm_model), newlm_model$Fitted_Residuals$Fitted_Values, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test residuals
+print(paste("Residuals equal:", isTRUE(all.equal(residuals(lm_model), newlm_model$Fitted_Residuals$Residuals, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test residual sum of squares
+print(paste("Residual sum of squares equal:", isTRUE(all.equal(sum(residuals(lm_model)^2), newlm_model$Statistics$Residual_Sum_of_Squares, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test degrees of freedom for SSE
+print(paste("Degrees of freedom for SSE equal:", isTRUE(all.equal(summary(lm_model)$df[2], newlm_model$Statistics$Degrees_of_Freedom_SSE, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test mean squared error
+print(paste("Mean squared error equal:", isTRUE(all.equal(summary(lm_model)$sigma^2, newlm_model$Statistics$Mean_Squared_Error, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test standard errors
+print(paste("Standard errors equal:", isTRUE(all.equal(summary(lm_model)$coefficients[, "Std. Error"], newlm_model$Standard_Errors$Standard_Errors, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test confidence intervals
+print(paste("Confidence intervals equal:", isTRUE(all.equal(as.data.frame(confint(lm_model)), newlm_model$Confidence_Intervals, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test t-values
+print(paste("t-values equal:", isTRUE(all.equal(summary(lm_model)$coefficients[, "t value"], newlm_model$Standard_Errors$t_Values, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test p-values
+print(paste("p-values equal:", isTRUE(all.equal(summary(lm_model)$coefficients[, "Pr(>|t|)"], newlm_model$Standard_Errors$p_Values, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test F-statistic
+print(paste("F-statistic equal:", isTRUE(all.equal(summary(lm_model)$fstatistic[1], newlm_model$Statistics$F_Statistic, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test p-value of F-statistic
+print(paste("P-value of F-statistic equal:", isTRUE(all.equal(pf(summary(lm_model)$fstatistic[1], summary(lm_model)$fstatistic[2], summary(lm_model)$fstatistic[3], lower.tail = FALSE), newlm_model$Statistics$P_Value_F, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test R-squared
+print(paste("R-squared equal:", isTRUE(all.equal(summary(lm_model)$r.squared, newlm_model$Statistics$R_squared, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test adjusted R-squared
+print(paste("Adjusted R-squared equal:", isTRUE(all.equal(summary(lm_model)$adj.r.squared, newlm_model$Statistics$Adjusted_R_squared, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+# Test covariance matrix
+print(paste("Covariance matrix equal:", isTRUE(all.equal(vcov(lm_model), newlm_model$Cov_Matrix, ignore.attr = TRUE, check.attributes = check_attributes))))
+
+
+```
+Efficiency: The efficiency of newlm() is slower than the lm().
+```{r}
+library(bench)
+benchmark=bench::mark(
+newlm_model <- newlm(mpg ~ hp, data = mtcars),
+lm_model <- lm(mpg ~ hp, data = mtcars),
+  check = FALSE
+)
+print(benchmark)
+
+```
+
+
+
+
+
