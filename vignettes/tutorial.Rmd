@@ -86,6 +86,17 @@ print(paste("Covariance matrix equal:", isTRUE(all.equal(vcov(lm_model), newlm_m
 
 ```
 
+Efficiency: The efficiency of newlm() is slower than the lm().
+```{r}
+library(bench)
+benchmark=bench::mark(
+newlm_model <- newlm(mpg ~ hp, data = mtcars),
+lm_model <- lm(mpg ~ hp, data = mtcars),
+  check = FALSE
+)
+print(benchmark)
+
+```
 
 
 
